@@ -1,0 +1,50 @@
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Index</title>
+    {% bootstrap_css %}
+</head>
+<body>
+<div class="container">
+    <h1>Produtos</h1>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Estoque</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <th scope="row">{{ produto.id }}</th>
+                <td><a href="#modal{{produto.id}}" data-toggle="modal">{{ produto.nome }}</a></td>
+                <td>{{ produto.preco }}</td>
+                <td>{{ produto.estoque }}</td>
+            </tr>
+            <div class="modal fade bd-example-modal-lg" id="modal{{produto.id}}" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        <div class="modal-body" id="dynamic-content">
+                            <img srcset="{{ produto.imagem.url  }}" class="img-fluid" alt="{{produto.nome}}"/>
+                        </div> <!--modificar o que foi feito (esse set nao estava no script-->
+                    </div> <!-- verificar se o caminho da imagem ainda funciona antes de alterar!-->
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>
