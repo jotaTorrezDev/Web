@@ -10,12 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+
 import dj_database_url
+
 from pathlib import Path
 
 #usando PostgreSQL com heroku
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
 
 from django.conf.global_settings import MEDIA_URL
@@ -31,9 +33,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&=2zxm4gy%jf)_lpnrlf55r_b#wwvv9u-sk(-@ib5@5jehm-#)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DJANGO_DEBUG", False) #se der erro altere para DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
+
 
 
 # Application definition
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    #'app' #foi adicionado esse app , pos deu erro no deploy , isso e so pra ver se agr vai !Se nao for /delet
     'stdimage',
     'bootstrap4',
 ]
@@ -60,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'django2.urls'
 
