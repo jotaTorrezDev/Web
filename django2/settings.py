@@ -17,7 +17,7 @@ from pathlib import Path
 
 #usando PostgreSQL com heroku
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': dj_database_url.config(default=os.getenv("PostgreSQL")) #fiz alteracao
 }
 
 from django.conf.global_settings import MEDIA_URL
@@ -49,14 +49,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    #'app' #foi adicionado esse app , pos deu erro no deploy , isso e so pra ver se agr vai !Se nao for /delet
+    'app' #foi adicionado esse app , pos deu erro no deploy , isso e so pra ver se agr vai !Se nao for /delet
     'stdimage',
     'bootstrap4',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,7 +92,9 @@ WSGI_APPLICATION = 'django2.wsgi.application'
 """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql', #<--!comentei para deixar off essa parte
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'NAME': 'django3',
         'USER': 'root',
         'PASSWORD': '7701',
