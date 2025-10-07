@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'app' #foi adicionado esse app , pos deu erro no deploy , isso e so pra ver se agr vai !Se nao for /delet
     'stdimage',
     'bootstrap4',
 ]
